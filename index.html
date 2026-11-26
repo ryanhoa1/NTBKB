@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-esitAvP6/uJeHNtZPVz6/LunVkTbwNY9/Cx+N9XzNxk=' 'sha256-uyu0oLcksO2Fl4LvkT9cfEGaE3XixYtOUDurCNhlKOY=' 'sha256-woSbXJIRK4jX8XtO0QBiRrpBpaMWUehgYTxPfMRruGs=' 'sha256-50eT1zieI21CqhoF5yJkNo56cvQKBmQJfVneBJiA15s=' 'sha256-yVBhl8r4CaB1tt7h2g02+xnacVj/6KiOewyWxdhiPJk=' 'sha256-fknaaFiOJQ27i7oZDSyqirN4fMAoS9odiy+AXE33Qsk=' 'sha256-6H5VB5QyLldKH9oMFUmjxw2uWpPZETQXpCkBaDjquMs=' https://accounts.google.com/gsi/client; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com/gsi/style; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://www.googleapis.com https://accounts.google.com/gsi/; frame-src https://accounts.google.com/gsi/; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-esitAvP6/uJeHNtZPVz6/LunVkTbwNY9/Cx+N9XzNxk=' 'sha256-uyu0oLcksO2Fl4LvkT9cfEGaE3XixYtOUDurCNhlKOY=' 'sha256-RWUeaimKZGBz2E1cFqDtygGbo3tLPpsaWwhvEIQKjO0=' 'sha256-50eT1zieI21CqhoF5yJkNo56cvQKBmQJfVneBJiA15s=' 'sha256-yVBhl8r4CaB1tt7h2g02+xnacVj/6KiOewyWxdhiPJk=' 'sha256-fknaaFiOJQ27i7oZDSyqirN4fMAoS9odiy+AXE33Qsk=' 'sha256-6H5VB5QyLldKH9oMFUmjxw2uWpPZETQXpCkBaDjquMs=' https://accounts.google.com/gsi/client; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com/gsi/style; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://www.googleapis.com https://accounts.google.com/gsi/; frame-src https://accounts.google.com/gsi/; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <script>try{if(top!==self)top.location=self.location}catch(e){document.documentElement.style.display="none"}</script>
 <title>Quản Lý Tiền Trọ</title>
@@ -387,6 +387,10 @@ svg.chart .b1{fill:var(--line2)}svg.chart .b2{fill:var(--accent)}
 #login .go{width:100%;padding:12px;border:0;border-radius:12px;background:var(--accent);color:var(--accent-ink);font:600 15px var(--font);cursor:pointer}
 #login .go[disabled]{opacity:.6;cursor:wait}
 #login .err{margin:12px 0 0;padding:9px 10px;border-radius:10px;background:var(--bad-soft);color:var(--bad);font-size:13px;text-align:left}
+#login .go.sec{margin-top:10px;background:var(--surface);color:var(--accent);border:1.5px solid var(--accent);font-weight:600}
+#login .go.sec:hover{background:var(--accent-soft,rgba(10,108,90,.07))}
+#login .linkbtn{margin-top:12px;background:none;border:0;color:var(--accent);font:500 12.5px var(--font);cursor:pointer;text-decoration:underline;padding:4px 8px}
+#login .linkbtn[disabled]{opacity:.5;cursor:wait}
 #login .hint{margin:14px 0 0;font-size:11.5px;color:var(--muted)}
 </style>
 </head>
@@ -808,7 +812,7 @@ function renderChrome(){
   const cur=NAV.find(n=>n.id===UI.view);
   $('#side').innerHTML=`<div class="brand"><div class="logo" style="background:none"><svg viewBox="0 0 240 240" width="34" height="34" aria-hidden="true"><rect width="240" height="240" rx="52" fill="#0a6c5a"/><path d="M32 112L120 36l88 76" fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><path d="M58 100v96h124v-96" fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><rect x="102" y="140" width="36" height="56" rx="6" fill="#f2b84b"/></svg></div><div><b>${esc(DB.settings.propertyName||'Nhà trọ')}</b><span>Quản lý tiền trọ</span>${DB.settings.address?`<span style="display:block;font-size:10.5px;line-height:1.3;margin-top:2px">${esc(DB.settings.address)}</span>`:''}</div></div>`+
     NAV.map(n=>`<button class="nav" data-act="nav" data-v="${esc(n.id)}" ${n.id===UI.view?'aria-current="page"':''}>${icon(n.icon)}${n.label}</button>`).join('')+
-    `<div class="side-foot"><div class="syncslot">${syncChip()}</div><p>Mọi thay đổi tự lưu. Dữ liệu nằm trong tệp JSON của riêng bạn.</p><p style="opacity:.7">Phiên bản v5.28 · Đăng nhập Google, lưu trên Google Drive</p><p style="opacity:.7;word-break:break-all;margin-top:2px">${esc((getAccount()||{}).email||'')}</p><button class="btn sm" data-act="logout" style="margin-top:8px">Đăng xuất</button></div>`;
+    `<div class="side-foot"><div class="syncslot">${syncChip()}</div><p>Mọi thay đổi tự lưu. Dữ liệu nằm trong tệp JSON của riêng bạn.</p><p style="opacity:.7">Phiên bản v5.29 · Đăng nhập Google, lưu trên Google Drive</p><p style="opacity:.7;word-break:break-all;margin-top:2px">${esc((getAccount()||{}).email||'')}</p><button class="btn sm" data-act="logout" style="margin-top:8px">Đăng xuất</button></div>`;
   $('#tabbar').innerHTML=TAB_IDS.map(id=>{const n=NAV.find(x=>x.id===id);return `<button data-act="nav" data-v="${esc(id)}" ${id===UI.view?'aria-current="page"':''}>${icon(n.icon)}${n.label}</button>`}).join('')+
     `<button data-act="menu">${icon('menu')}Thêm</button>`;
   const ks=monthKeys(),k=UI.month,i=ks.indexOf(k),m=DB.months[k],showM=!['settings','leave','tax','docs'].includes(UI.view);
@@ -3099,48 +3103,86 @@ function newMonthModal(){
 }
 
 /* ---------- khởi động ---------- */
-/* ---------- v5.26: đăng ký lần đầu bằng tài khoản Google (Gmail), mỗi lần đăng nhập kết nối Google Drive ---------- */
+/* ---------- v5.29: hỗ trợ đăng nhập tài khoản có sẵn (có sẵn DB trên Drive) hoặc đăng ký mới, và đổi tài khoản ---------- */
 const ACC_KEY='tientro.account',AUTH_KEY='tientro.auth',AUTH_TTL=12*3600*1000; // AUTH_TTL: thời gian nhớ phiên đăng nhập; đặt 0 nếu muốn phải kết nối Drive mỗi lần mở app
-let JUST_REG=false;
+let JUST_REG=false,LOGIN_MSG='';
 function getAccount(){try{const a=JSON.parse(localStorage.getItem(ACC_KEY)||'null');return a&&a.email?a:null}catch(e){return null}}
-function setAccount(a){try{localStorage.setItem(ACC_KEY,JSON.stringify(a))}catch(e){}}
+function setAccount(a){try{if(a)localStorage.setItem(ACC_KEY,JSON.stringify(a));else localStorage.removeItem(ACC_KEY)}catch(e){}}
 function authOK(){try{const acc=getAccount(),a=JSON.parse(localStorage.getItem(AUTH_KEY)||'null');return !!acc&&!!a&&a.email===acc.email&&Date.now()<a.exp}catch(e){return false}}
 function authSet(email){try{localStorage.setItem(AUTH_KEY,JSON.stringify({email,exp:Date.now()+AUTH_TTL}))}catch(e){}}
 function authClear(){try{localStorage.removeItem(AUTH_KEY)}catch(e){}}
 function loginScreen(){return new Promise(done=>{
   const el=document.createElement('div');el.id='login';
   const web=/^https?:$/.test(location.protocol);
-  let err='',busy=false,forcePick=false;
+  let err='',busyMode='',forcePick=false;
   const dropTok=()=>{GD.token=null;GD.exp=0;try{sessionStorage.removeItem('tientro.gd')}catch(e){}};
   const draw=()=>{
-    const acc=getAccount();
+    const acc=getAccount(),busy=!!busyMode;
     el.innerHTML=`<div class="box"><img src="${BRAND.logo}" alt=""><h1>${esc(BRAND.name)}</h1>
-    ${acc?`<p>Đăng nhập bằng cách kết nối Google Drive của tài khoản đã đăng ký</p><div class="em">${esc(acc.email)}</div>
-      <button class="go" id="lgbtn" ${busy||!web?'disabled':''}>${busy?'Đang kết nối Google Drive…':'Kết nối Google Drive để đăng nhập'}</button>`
-    :`<p>Lần đầu sử dụng: đăng ký bằng tài khoản Gmail của bạn. Ứng dụng sẽ tạo cơ sở dữ liệu riêng trong Google Drive của tài khoản này.</p>
+    ${acc?`<p>Đăng nhập bằng cách kết nối Google Drive của tài khoản đã lưu trên máy</p><div class="em">${esc(acc.email)}</div>
+      <button class="go" id="lgbtn" ${busy||!web?'disabled':''}>${busyMode==='connect'?'Đang kết nối Google Drive…':'Kết nối Google Drive để đăng nhập'}</button>
+      <button class="linkbtn" id="lgswitch" type="button" ${busy||!web?'disabled':''}>Chọn tài khoản Google khác (đã có dữ liệu hoặc tạo mới)</button>`
+    :`<p>Chọn cách bắt đầu trên thiết bị này: đăng nhập bằng tài khoản Gmail <b>đã có cơ sở dữ liệu</b> trên Google Drive hoặc đăng ký mới.</p>
       ${CFG.gClientId?'':'<input id="lcid" type="text" placeholder="Dán Google Client ID (làm một lần)" autocomplete="off" spellcheck="false">'}
-      <button class="go" id="lgbtn" ${busy||!web?'disabled':''}>${busy?'Đang đăng ký…':'Đăng ký bằng tài khoản Google'}</button>`}
+      <button class="go" id="lgexisting" ${busy||!web?'disabled':''}>${busyMode==='existing'?'Đang tìm dữ liệu trên Google Drive…':'Đăng nhập bằng tài khoản có sẵn'}</button>
+      <button class="go sec" id="lgnew" ${busy||!web?'disabled':''}>${busyMode==='new'?'Đang đăng ký tài khoản mới…':'Đăng ký mới bằng tài khoản Google'}</button>`}
     ${!web?'<div class="err" role="alert">Đăng nhập Google cần mở ứng dụng từ địa chỉ https (ví dụ GitHub Pages), không mở trực tiếp từ tệp trên máy.</div>':''}
     ${err?`<div class="err" role="alert">${esc(err)}</div>`:''}
-    <p class="hint">${acc?'Một cửa sổ Google sẽ hiện ra, chọn đúng tài khoản và cho phép dùng Google Drive.':'Chỉ cần đăng ký một lần trên mỗi thiết bị. Lần sau chỉ cần kết nối lại Google Drive.'}</p></div>`;
-    const b=$('#lgbtn',el);if(b)b.onclick=go;
+    <p class="hint">${acc?'Một cửa sổ Google sẽ hiện ra, chọn đúng tài khoản và cho phép dùng Google Drive.':'Nếu đã dùng app trên máy khác, hãy bấm “Đăng nhập bằng tài khoản có sẵn” và chọn đúng Gmail cũ để tải toàn bộ dữ liệu về.'}</p></div>`;
+    const b=$('#lgbtn',el);if(b)b.onclick=()=>go('connect');
+    const bEx=$('#lgexisting',el);if(bEx)bEx.onclick=()=>go('existing');
+    const bNew=$('#lgnew',el);if(bNew)bNew.onclick=()=>go('new');
+    const bSw=$('#lgswitch',el);if(bSw)bSw.onclick=()=>{
+      if(busy)return;
+      dropTok();authClear();setAccount(null);
+      CFG.gFileId=null;CFG.gFolderId=null;CFG.syncPid=null;CFG.syncRev=0;saveCfg();
+      try{localStorage.removeItem('tientro.db')}catch(e){}
+      err='';forcePick=true;draw();
+    };
   };
-  const go=async()=>{
-    if(busy)return;
+  const go=async(mode)=>{
+    if(busyMode)return;
     const ci=$('#lcid',el);if(ci){CFG.gClientId=ci.value.trim();saveCfg()}
     if(!CFG.gClientId){err='Chưa có Google Client ID';return draw()}
-    const acc=getAccount();busy=true;err='';draw();
+    const acc=getAccount();busyMode=mode;err='';draw();
     try{
       dropTok();
-      await GD.request(false,{prompt:(!acc||forcePick)?'select_account':'',hint:acc?acc.email:undefined});
+      const isFirst=!acc||mode!=='connect';
+      await GD.request(false,{prompt:(isFirst||forcePick)?'select_account':'',hint:acc?acc.email:undefined});
       const u=await GD.userInfo();const email=String(u.email||'').trim().toLowerCase();
       if(!email)throw new Error('Không lấy được email của tài khoản Google');
-      if(acc&&email!==String(acc.email).toLowerCase()){dropTok();forcePick=true;throw new Error('Bạn vừa chọn '+email+', không phải tài khoản đã đăng ký ('+acc.email+'). Hãy chọn đúng tài khoản.')}
+      if(acc&&mode==='connect'&&email!==String(acc.email).toLowerCase()){
+        dropTok();forcePick=true;
+        throw new Error('Bạn vừa chọn '+email+', không phải tài khoản đã đăng ký ('+acc.email+'). Hãy chọn đúng tài khoản hoặc bấm “Chọn tài khoản Google khác”.');
+      }
       let registered=false;
-      if(!acc){setAccount({email,name:u.name||'',at:Date.now()});CFG.gFileId=null;CFG.gFolderId=null;GD.fileId=null;GD.folderId=null;registered=true}
+      if(isFirst){
+        // Reset cache ID Drive để tìm đúng thư mục/tệp của tài khoản vừa chọn
+        CFG.gFileId=null;CFG.gFolderId=null;GD.fileId=null;GD.folderId=null;
+        let existingRaw=null;
+        try{
+          const fid=await GD.findFile();
+          if(fid)existingRaw=await GD.pull();
+        }catch(e){}
+        const rem=existingRaw&&safeParse(existingRaw);
+        if(mode==='existing'&&!rem){
+          dropTok();forcePick=true;
+          throw new Error('Không tìm thấy dữ liệu có sẵn (tệp TienTro_data.json) trên Google Drive của '+email+'. Hãy kiểm tra lại đúng Gmail cũ hoặc chọn “Đăng ký mới bằng tài khoản Google”.');
+        }
+        setAccount({email,name:u.name||'',at:Date.now()});
+        if(rem){
+          DB=normalizeDB(rem);CFG.syncPid=rem.pid;CFG.syncRev=DB.rev;persistLocal();
+          LOGIN_MSG='Đã tải dữ liệu có sẵn từ Google Drive của '+email;
+          registered=false;
+        }else{
+          try{localStorage.removeItem('tientro.db')}catch(e){}
+          DB=null;CFG.syncPid=null;CFG.syncRev=0;
+          registered=true;
+        }
+      }
       CFG.driver='gdrive';saveCfg();
       authSet(email);el.remove();done(registered);
-    }catch(e){err=(e&&e.message)||String(e);busy=false;draw()}
+    }catch(e){err=(e&&e.message)||String(e);busyMode='';draw()}
   };
   draw();document.body.appendChild(el);
   loadScript('https://accounts.google.com/gsi/client').catch(()=>{}); // tải sẵn để cửa sổ đăng nhập không bị trình duyệt chặn
@@ -3154,7 +3196,7 @@ async function boot(){
 
 async function boot0(){
   if(CFG.driver!=='gdrive'){CFG.driver='gdrive';CFG.syncPid=null;saveCfg()} // v5.26: dữ liệu luôn nằm trên Google Drive
-  DB=loadLocal();
+  if(!DB)DB=loadLocal();
   if(!DB){ // máy chưa có dữ liệu: nếu tài khoản này đã có cơ sở dữ liệu trên Drive thì lấy về, chưa có thì tạo mới
     try{const t=await GD.pull();const rem=t&&safeParse(t);if(rem){DB=normalizeDB(rem);CFG.syncPid=rem.pid;CFG.syncRev=DB.rev;saveCfg();persistLocal()}}catch(e){}
     if(!DB){DB=makeSeed();persistLocal()}
@@ -3169,7 +3211,8 @@ async function boot0(){
   window.addEventListener('online',()=>{if(Sync.driver&&Sync.state==='error')Sync.push()});
   try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){} // xin trình duyệt không tự xóa dữ liệu/kết nối đã nhớ
   const st=Sync.startup();
-  if(JUST_REG)st.then(()=>{if(Sync.state==='idle')toast('Đã tạo cơ sở dữ liệu trên Google Drive của '+((getAccount()||{}).email||'bạn'))});
+  if(LOGIN_MSG)st.then(()=>{toast(LOGIN_MSG)});
+  else if(JUST_REG)st.then(()=>{if(Sync.state==='idle')toast('Đã tạo cơ sở dữ liệu trên Google Drive của '+((getAccount()||{}).email||'bạn'))});
   // Trình duyệt chỉ cho cấp lại quyền/đăng nhập khi người dùng chạm vào trang: thử đúng một lần ở lần chạm đầu tiên, không báo lỗi
   let autoTried=false;
   const gest=e=>{if(autoTried||!Sync.driver||Sync.state!=='needauth'||Sync.busy)return;if(e.target.closest&&e.target.closest('[data-act="syncchip"]'))return;autoTried=true;reauth(true)};
